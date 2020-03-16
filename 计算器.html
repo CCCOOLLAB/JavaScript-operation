@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100%;
+        }
+        ul{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        input{
+            outline: none;
+        }
+        .box{
+            width: 500px;
+            background: #292b2a;
+            margin: 0 auto;
+        }
+        .box li{
+            margin-left: 45px;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        .up{
+            width: 35px;
+            height: 30px;
+            background: #000;
+            padding: 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+        }
+        .down{
+            width: 35px;
+            height: 30px;
+            background: #000;
+            padding: 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+        }
+        .text{
+            width: 45px;
+            height: 30px;
+            margin: 0 15px;
+            background: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 0;
+            border: 0;
+        }
+        .price{
+            width: 250px;
+            height: 35px;
+            background: #000;
+            font: 15px/35px "微软雅黑";
+            color: #fff;
+            text-indent: 15px;
+            border-radius: 8px;
+            margin-left: 25px;
+            display: inline-block;
+        }
+        .price span:first-child{
+            margin-right: 15px;
+        }
+        .box2{
+            width: 500px;
+            background: #000;
+            margin: 0 auto;
+            font: 15px/35px "微软雅黑";
+            color: #fff;
+        }
+        .one{
+            margin-left: 45px;
+            padding: 15px 0;
+        }
+        .two{
+            margin-left: 45px;
+            padding-bottom: 15px;
+        }
+        .share{
+            width: 60px;
+            height: 30px;
+            margin: 0 15px;
+            background: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 0;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <ul class="box">
+        <li>
+            <input type="button" value="-" class="down"/>
+            <input type="text" value="0" class="text"/>
+            <input type="button" value="+" class="up"/>
+            <div class="price">
+                <span>单价：12.5元</span>
+                <span>小计：</span><strong>0</strong><span>元</span>
+            </div>
+        </li>
+        <li>
+            <input type="button" value="-" class="down"/>
+            <input type="text" value="0" class="text"/>
+            <input type="button" value="+" class="up"/>
+            <div class="price">
+                <span>单价：10.5元</span>
+                <span>小计：</span><strong>0</strong><span>元</span>
+            </div>
+        </li>
+        <li>
+            <input type="button" value="-" class="down"/>
+            <input type="text" value="0" class="text"/>
+            <input type="button" value="+" class="up"/>
+            <div class="price">
+                <span>单价：8.5元</span>
+                <span>小计：</span><strong>0</strong><span>元</span>
+            </div>
+        </li>
+        <li>
+            <input type="button" value="-" class="down"/>
+            <input type="text" value="0" class="text"/>
+            <input type="button" value="+" class="up"/>
+            <div class="price">
+                <span>单价：8元</span>
+                <span>小计：</span><strong>0</strong><span>元</span>
+            </div>
+        </li>
+        <li>
+            <input type="button" value="-" class="down"/>
+            <input type="text" value="0" class="text"/>
+            <input type="button" value="+" class="up"/>
+            <div class="price">
+                <span>单价：14.5元</span>
+                <span>小计：<strong>0</strong><span></span>元</span>
+            </div>
+        </li>
+    </ul>
+    <div class="box2">
+        <div class="one">
+            商品合计<input type="text" class="text2 share" value="0"/>件
+            共花费了<input type="text" class="text3 share" value="0"/>元
+        </div>
+        <div class="two">
+            其中最贵的商品单价是<input type="text" class="text4 share" value="0"/>元
+        </div>
+    </div>
+    <script>
+        let btnup = document.querySelectorAll(".up");
+        let btndown = document.querySelectorAll(".down");
+        let text = document.querySelectorAll(".text");
+        let sum = document.querySelectorAll("strong");
+        let text2 = document.querySelector(".text2");
+        let text3 = document.querySelector(".text3");
+        let text4 = document.querySelector(".text4");
+        let arr = [12.5,10.5,8.5,8,14.5];
+        for(var i=0;i<btnup.length;i++){
+            btnup[i].index = i;
+            btnup[i].onclick = function(){
+                text[this.index].value = Number(text[this.index].value) + 1;
+                sum[this.index].innerHTML = text[this.index].value * arr[this.index];
+
+                let tmath = 0;
+                for(var i=0;i<btnup.length;i++){
+                    tmath += Number(text[i].value); 
+                };
+                text2.value = tmath;
+
+                let tog = 0;
+                for(var i=0;i<btnup.length;i++){
+                    tog += Number(sum[i].innerHTML); 
+                };
+                text3.value = tog;
+
+                let top = 0;
+                for(var i=0;i<btnup.length;i++){
+                    if(text[i].value > 0){
+                        top += Math.max(top,arr[i]);
+                    };
+                };
+                text4.value = top;
+
+            };
+
+            btndown[i].index = i;
+            btndown[i].onclick = function(){
+                if(Number(text[this.index].value) > 0 ){
+                    text[this.index].value = Number(text[this.index].value) - 1;
+                    sum[this.index].innerHTML = text[this.index].value * arr[this.index];
+                };
+
+                let tmath = 0;
+                for(var i=0;i<btndown.length;i++){
+                    tmath += Number(text[i].value); 
+                };
+                text2.value = tmath;
+
+                let tog = 0;
+                for(var i=0;i<btndown.length;i++){
+                    tog += Number(sum[i].innerHTML); 
+                };
+                text3.value = tog;
+
+                let top = 0;
+                for(var i=0;i<btndown.length;i++){
+                    if(text[i].value > 0){
+                        top += Math.max(top,arr[i]);
+                    };
+                };
+                text4.value = top;
+            };            
+        };
+    </script>
+</body>
+</html>

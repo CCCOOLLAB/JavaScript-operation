@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100%;
+        }
+        .box{
+            width: 480px;
+            margin: 30px auto;
+            border: 1px solid #ccc;
+        }
+        .bc{
+            width: 420px;
+            height: 35px;
+            padding: 0 30px;
+        }
+        label{
+            display: flex;
+        }
+        input{
+            margin-right: 20px;
+            margin-top: 11px;
+        }
+        span{           
+            font: 14px/35px "微软雅黑";
+        }
+        .title{
+            width: 380px;
+            height: 100%;
+        }
+        .title span:last-child{
+            float: right;
+        }
+        .bc2{
+            height: 50px;
+            width: 450px;
+            padding-left: 30px;
+            background: #de4a63;
+            font: 20px/50px "微软雅黑";
+            color: #fff;
+        }
+        .bc2 span{
+            margin-right: 70px;
+        }
+        .show{
+            background: #de4a63;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">       
+        <div class="bc">
+            <label>
+                <input type="checkbox"/>
+                <div class="title">
+                    <span>茄子</span>
+                    <span>5元/斤</span>
+                </div>                   
+            </label>       
+        </div>       
+        <div class="bc">
+            <label>
+                <input type="checkbox"/>
+                <div class="title">
+                    <span>土豆</span>
+                    <span>3元/斤</span>
+                </div>                
+            </label>
+        </div>
+        <div class="bc">
+            <label>
+                <input type="checkbox"/>
+                <div class="title">
+                    <span>鸡肉</span>
+                    <span>25元/斤</span>
+                </div>                
+            </label>
+        </div>
+        <div class="bc">
+            <label>
+                <input type="checkbox"/>
+                <div class="title">
+                    <span>鸡毛菜</span>
+                    <span>2元/斤</span>
+                </div>
+            </label>
+        </div>       
+        <div class="bc">
+            <label>
+                <input type="checkbox"/>
+                <div class="title">
+                    <span>紫薯</span>
+                    <span>2.5元/斤</span>
+                </div>                
+            </label>
+        </div>
+        <div class="bc">
+            <label>
+                <input type="checkbox"/>
+                <div class="title">
+                    <span>白菜</span>
+                    <span>1.5元/斤</span>
+                </div>                
+            </label>
+        </div>
+        <div class="bc2">
+            <input type="checkbox"/><span>全选</span><span>收藏</span><span>添加</span><span>删除</span>
+        </div>
+    </div>
+    <script>
+        //单个点击的时候背景色不叠加？
+        let list = document.querySelector(".box");
+        let lis = list.querySelectorAll(".bc");
+        let bt = list.querySelectorAll(".bc input");
+        let liss = list.querySelectorAll(".bc2");
+        let all = list.querySelector(".bc2 input");
+        for(var i=0;i<lis.length;i++){
+            lis[i].index = i;
+            //隔行换色
+            if(i%2 == 1){
+                lis[i].style.background = "#f7c5ce";
+            }else{
+                lis[i].style.background = "#fff";
+            };
+            //移入添加背景色 字体变色
+            lis[i].onmouseover = function(){
+                lis[this.index].style.background = "#de4a63"; 
+                lis[this.index].style.color = "#fff"; 
+            };
+            lis[i].onmouseout = function(){
+                if(this.index%2 == 1){
+                    lis[this.index].style.background = "#f7c5ce";
+                }else{
+                    lis[this.index].style.background = "#fff";
+                };
+                lis[this.index].style.color = "#000";                  
+            }; 
+            //全部点击的时候 全选自动勾选
+            lis[i].onchange = function(){
+                var num = 0;
+                for(var i=0;i<lis.length;i++){
+                    if(bt[i].checked){
+                        num++;  
+                        bt[i].style.backgroundColor = "#de4a63"; 
+                        bt[i].style.color = "#fff";                                          
+                    }; 
+                    if(num == lis.length){
+                        all.checked = true;
+                    }else{
+                        all.checked = false;
+                    };             
+                };  
+            };
+            //全选点击的时候 自动全部勾选
+            all.onchange = function(){
+                for(var j=0;j<bt.length;j++){
+                    bt[j].checked = this.checked;
+                    if(this.checked){
+                        lis[j].style.backgroundColor = "#de4a63";
+                        lis[j].style.color = "white";
+                    }else{
+                        if(j%2 == 1){
+                            lis[j].style.background = "#f7c5ce";
+                        }else{
+                            lis[j].style.background = "#fff";
+                        }; 
+                        lis[j].style.color = "#000";
+                    };
+                };
+            };
+        };
+    </script>
+</body>
+</html>
